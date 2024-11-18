@@ -11,7 +11,9 @@ def search_client(request):
    client_info=get_object_or_404(Client,CNIC=client_CNIC)
    return render(request,"client_info.html",{'client':client_info})
   return redirect('search_client')
-
+def payment_info(request,id):
+  payments=Payment.objects.filter(loan=id)
+  return render(request,'payment_info.html',{'payments':payments})
 def pay_installment(request,id):
   loan=get_object_or_404(Loan,id=id)
   return render(request,'pay_installment.html',{'loan':loan})
