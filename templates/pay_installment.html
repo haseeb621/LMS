@@ -29,10 +29,10 @@
                     <div class="card-body">
                         <p><strong>Client Name:</strong> {{ loan.client.full_name }}</p>
                         <p><strong>Loan ID:</strong> {{ loan.id }}</p>
-                        <p><strong>Loan Amount:</strong> ${{ loan.loan_amount }}</p>
+                        <p><strong>Loan Amount:</strong> {{ loan.loan_amount }}</p>
                         <p><strong>Interest Rate:</strong> {{ loan.interest_rate }}%</p>
-                        <p><strong>Total Payment:</strong> ${{ loan.total_payment }}</p>
-                        <p><strong>Remaining Amount:</strong> ${{ loan.remaining_amount }}</p>
+                        <p><strong>Total Payment:</strong> {{ loan.total_payment }}</p>
+                        <p><strong>Remaining Amount:</strong> {{ loan.remaining_amount }}</p>
                     </div>
                 </div>
 
@@ -54,7 +54,7 @@
                                     {% for payment in loan.payment_set.all %}
                                         <tr>
                                             <td>{{ payment.payment_date }}</td>
-                                            <td>${{ payment.amount_paid }}</td>
+                                            <td>{{ payment.amount_paid }}</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
@@ -74,7 +74,7 @@
                         <form action="{% url 'process_payment' loan.id %}" method="POST">
                             {% csrf_token %}
                             <div class="mb-3">
-                                <label for="amount" class="form-label">Installment Amount ($)</label>
+                                <label for="amount" class="form-label">Installment Amount</label>
                                 <input type="number" name="amount" id="amount" class="form-control" placeholder="Enter amount to pay" min="1" required>
                             </div>
                             <button type="submit" class="btn btn-success">Submit Payment</button>

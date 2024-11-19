@@ -116,6 +116,10 @@
                         <td><strong>Amount Paid:</strong></td>
                         <td>{{ payment.amount_paid }}</td>
                     </tr>
+                    <tr>
+                        <td><strong>Remaining Amount:</strong></td>
+                        <td>{{ payment.loan.remaining_amount }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -124,6 +128,7 @@
         <div class="receipt-footer">
             <p>This receipt is generated electronically and does not require a signature.</p>
             <button class="btn btn-primary btn-print" onclick="window.print()">Print Receipt</button>
+            <a href="{% url 'reverse_client_info' payment.client.CNIC  %}" class="btn btn-primary mt-3">Back to Client Info</a> 
         </div>
     </div>
 

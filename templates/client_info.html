@@ -99,27 +99,32 @@
                             </td>
                         </tr>
 
-                        <!-- Modal for Payment Form -->
-                        <div class="modal fade" id="payInstallmentModal{{ loan.id }}" tabindex="-1" aria-labelledby="payInstallmentModalLabel{{ loan.id }}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="payInstallmentModalLabel{{ loan.id }}">Make a Payment for Loan ID: {{ loan.id }}</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="{% url 'process_payment' loan.id %}" method="POST">
-                                            {% csrf_token %}
-                                            <div class="mb-3">
-                                                <label for="amount{{ loan.id }}" class="form-label">Installment Amount ($)</label>
-                                                <input type="number" name="amount" id="amount{{ loan.id }}" class="form-control" placeholder="Enter amount to pay" min="1" required>
-                                            </div>
-                                            <button type="submit" class="btn btn-success">Submit Payment</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       <!-- Modal for Payment Form -->
+<div class="modal fade" id="payInstallmentModal{{ loan.id }}" tabindex="-1" aria-labelledby="payInstallmentModalLabel{{ loan.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="payInstallmentModalLabel{{ loan.id }}">Make a Payment for Loan ID: {{ loan.id }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Installment Amount:</strong> {{ loan.Installment }}</p>
+                <p><strong>Remaining Amount:</strong> {{ loan.remaining_amount }}</p>
+                <form action="{% url 'process_payment' loan.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="amount{{ loan.id }}" class="form-label">Enter Payment Amount </label>
+                        <input type="number" name="amount" id="amount{{ loan.id }}" 
+                               class="form-control" placeholder="Enter amount to pay" 
+                               min="1" max="{{ loan.remaining_amount }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit Payment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
                     {% endfor %}
                 </tbody>
