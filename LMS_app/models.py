@@ -58,9 +58,6 @@ class Loan(models.Model):
     def next_payment_date(self):
         payments_made=self.payment_set.count()
         return self.start_date + relativedelta(months=payments_made+1)
-      
-
-    
     def __str__(self):
         return f"Loan {self.id} for {self.client.full_name}"
 
